@@ -1,0 +1,96 @@
+Unit 15 Homework
+
+<img src="Images/OSI Model.png">
+
+Ping 8.8.8.8
+
+
+Ping 8.8.8.8
+
+
+
+
+
+
+Ping 8.8.8.8 && pwd
+
+Ping 8.8.8.8 && pwd
+
+Cat ../../../etc/passwd
+
+Cat ../../../etc/hosts
+
+
+
+
+
+
+
+Mitigation methods
+
+-reducing the ability of the user to input files from a web application
+-limit the ability of the file to be modifies
+-use a service that has a special account for the user.
+
+
+
+
+
+
+
+
+
+Mitigations Methods of SQL injunction 
+
+-Use of validation to limit users ability to modify files
+-The use of servers that have selective user accounts associated with them linked to the web
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Password Mitigation
+
+Use of complex characters
+Limit login failures
+Multi factor authentication
+
+
+
+
+
+
+
+
+
+Mitigation 
+
+Ensure the application has a HTTP (HyperText Transfer Protocol/Secure)  header has secure cookie attributes
+Session cookies are encrypted 
+Headers have HTTPOnly cookies attributes(does not allow Java access)
+Ensure cookies are min length so it is difficult for brute force
+
