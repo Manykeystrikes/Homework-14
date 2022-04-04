@@ -9,43 +9,59 @@ The concept of defense in depth can be broken down into three different security
 
 1. Walls, bollards, fences, guard dogs, cameras, and lighting are what type of security control?
 
-    Answer:
+    Answer:Physical security 
+
 
 2. Security awareness programs, BYOD policies, and ethical hiring practices are what type of security control?
 
-    Answer:
+    Answer:administrative security
 
 3. Encryption, biometric fingerprint readers, firewalls, endpoint security, and intrusion detection systems are what type of security control?
 
-    Answer:
+    Answer:Technical security
 
 #### Intrusion Detection and Attack indicators
 
 1. What's the difference between an IDS and an IPS?
 
-    Answer:
+        Answer:Intrusion Detection system (IDS) rlates to the traffic and the systems analysing and monitoring.
+        Compare current network activity to threat databases to assist with the detection security behaviours
+        > security policy violations, Malware and port scanners.
+
+        -Intersion Prevention Systems (IPS) are located within the layer as firewalls; protection between both the outside world and the internal network. Is used to deny traffic, via the constaints of the security profile.    
+
 
 2. What's the difference between an Indicator of Attack and an Indicator of Compromise?
 
-   Answer:
+        Answer: The digital evidence that a cyber incident has occurred; the audits security relates to the speculation of a network breach is a n Indicator of Compromise
+
+        - The Indicator of Attack (IOA) is a pyhical evidence trail that a cyber attack has occured.
 
 #### The Cyber Kill Chain
 
 Name each of the seven stages for the Cyber Kill chain and provide a brief example of each.
 
-1. Stage 1:
+1. Stage 1:Reconnaissance - to gain as much information on the target before committing to the attack
+    - Passive recon, using phishing for information 
+    - Active Recn, to gain access to protected areas via or bypassing router and firewalls.
 
-2. Stage 2:
+2. Stage 2:Weaponisation- use of malware to infect devices to allow with DOS attacks, such as 
+            - Botnets target networks are forced to accept commands from another computer which assist the command hardware to attack other computers
+            - DDOS (distributed denial of service attacks) the system is flooded with data tracffic.
+            - Malware this code is injected into the system eg logic bombs, worms, packet sniffers
 
-3. Stage 3:
+3. Stage 3: Delivery; the attacker can use emails to send code. direct hacking into the open port.
+            - the code malware is sent to the target through phishing 
 
-4. Stage 4:
+4. Stage 4: Exploitation; hackers find the weakness in the systems, the host machine is infected via either a install of malware to allow command execution. The other is install malware from the internet to allow command execution.
 
-5. Stage 5:
+5. Stage 5:Installation; this is either a web shell on a infected webserver. Allows backdoor access to the target allows the attacher to bypass sec controls.
 
-6. Stage 6:
+6. Stage 6:Command and Control; allows the control of the encryption keys eg, remote access trojans allow remote access to the target. The attack phase allow consistant connection . The use of Hypertext Transfer Protocols /Security (HTTP&HTTPS) such as self-signed certificates or custom encryption.
 
-7. Stage 7:
+7. Stage 7: Actions; this relates to how the hackers realises the goals of the attack. 
+    - extracting ransome for the encryption codes 
+    - 
 
 
 #### Snort Rule Analysis
@@ -60,15 +76,18 @@ alert tcp $EXTERNAL_NET any -> $HOME_NET 5800:5820 (msg:"ET SCAN Potential VNC S
 
 1. Break down the Sort Rule header and explain what is happening.
 
-   Answer:
+   Answer:alert tcp $EXTERNAL_NET any -> $HOME_NET 5800:5820 is the Rule header alert is the action; tcp aplies the rule; External_Net is anything except HOME_NET; and creates an alert that applies to all TCP (Transmission Control Protocols) packets  looking at any ports  on the home network.
+
+    - (msg:"ET SCAN Potential VNC Scan 5800-5820" this is the message that is printed by the alert.
+
 
 2. What stage of the Cyber Kill Chain does this alert violate?
 
-   Answer:
+   Answer:  This is the reconnaissance 
 
 3. What kind of attack is indicated?
 
-   Answer:
+   Answer: classtype:attempted-recon
 
 Snort Rule #2
 
@@ -78,7 +97,7 @@ alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"ET POLICY PE EXE or D
 
 1. Break down the Sort Rule header and explain what is happening.
 
-   Answer:
+   Answer: 
 
 2. What layer of the Defense in Depth model does this alert violate?
 
