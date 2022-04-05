@@ -97,21 +97,21 @@ alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"ET POLICY PE EXE or D
 
 1. Break down the Sort Rule header and explain what is happening.
 
-   Answer: 
+   Answer: alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET - this rule header is used to use a range of addresses to be able to designate address that are not in range.
 
 2. What layer of the Defense in Depth model does this alert violate?
 
-   Answer:
+   Answer: Delivery
 
 3. What kind of attack is indicated?
 
-   Answer:
+   Answer: classtype:policy-violation -SQL Injections. 
 
 Snort Rule #3
 
 - Your turn! Write a Snort rule that alerts when traffic is detected inbound on port 4444 to the local network on any port. Be sure to include the `msg` in the Rule Option.
 
-    Answer:
+    Answer: alert tcp any 
 
 ### Part 2: "Drop Zone" Lab
 
@@ -129,7 +129,8 @@ Before getting started, you should verify that you do not have any instances of 
 - Run the command that removes any running instance of `ufw`.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <sudo ufw status numbered>
+    <sudo ufw delete allow 22/tcp>
     ```
 
 #### Enable and start `firewalld`
@@ -139,8 +140,9 @@ By default, these service should be running. If not, then run the following comm
 - Run the commands that enable and start `firewalld` upon boots and reboots.
 
     ```bash
-    $ <ADD COMMAND TO enable firewalld HERE>
-    $ <ADD COMMAND TO  start firewalld HERE>
+    $ <sudo apt update>
+    $ <sudo apt install firewalld>
+     <firewall-cmd --permanent --zone=whatever --add-service=http>
     ```
 
   Note: This will ensure that `firewalld` remains active after each reboot.
@@ -150,7 +152,7 @@ By default, these service should be running. If not, then run the following comm
 - Run the command that checks whether or not the `firewalld` service is up and running.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <sudo firewall-cmd --state>
     ```
 
 
@@ -161,7 +163,7 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Run the command that lists all currently configured firewall rules:
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <sudo systemctl status firewalld>
     ```
 
 - Take note of what Zones and settings are configured. You many need to remove unneeded services and settings.
@@ -171,7 +173,8 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Run the command that lists all currently supported services to see if the service you need is available
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <$ service --status-all>
+
     ```
 
 - We can see that the `Home` and `Drop` Zones are created by default.
@@ -182,7 +185,7 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Run the command that lists all currently configured zones.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --get-zones>
     ```
 
 - We can see that the `Public` and `Drop` Zones are created by default. Therefore, we will need to create Zones for `Web`, `Sales`, and `Mail`.
@@ -192,9 +195,10 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Run the commands that creates Web, Sales and Mail zones.
 
     ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <sudo firewall -cmd --new -zone=web>
+    <sudo firewall -cmd --new -zone=sales>
+    <sudo firewall -cmd --new -zone=mail>
+
     ```
 
 #### Set the zones to their designated interfaces:
@@ -202,10 +206,10 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Run the commands that sets your `eth` interfaces to your zones.
 
     ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <sudo firewall -cmd --zone=web --change -interface=eth1>
+    $ <sudo firewall -cmd --zone=sales --change -interface=eth2>
+    $ <sudo firewall -cmd --zone=mail --change -interface=eth3>
+   
     ```
 
 #### Add services to the active zones:
@@ -215,41 +219,41 @@ Next, lists all currently configured firewall rules. This will give you a good i
 - Public:
 
     ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --permanent --zone=public --change-interface=eth1>
+    <sudo firewall-cmd --zone=public --add-service=http --permanent>
     ```
 
 - Web:
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <<firewall-cmd --permanent --zone=public --change-interface=eth2>
     ```
 
 - Sales
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --permanent --zone=public --change-interface=eth3>
     ```
 
 - Mail
 
     ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --permanent --zone=public --change-interface=eth3>
+    $ 
     ```
 
 - What is the status of `http`, `https`, `smtp` and `pop3`?
+
+< firewall-cmd --reload>
+
 
 #### Add your adversaries to the Drop Zone.
 
 - Run the command that will add all current and any future blacklisted IPs to the Drop Zone.
 
      ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='192.168.0.11' reject">
+    
     ```
 
 #### Make rules permanent then reload them:
@@ -259,7 +263,7 @@ It's good practice to ensure that your `firewalld` installation remains nailed u
 - Run the command that reloads the `firewalld` configurations and writes it to memory
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --runtime-to-permanent>
     ```
 
 #### View active Zones
@@ -269,7 +273,7 @@ Now, we'll want to provide truncated listings of all currently **active** zones.
 - Run the command that displays all zone services.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ < firewall-cmd --list-all-zones>
     ```
 
 
@@ -278,7 +282,7 @@ Now, we'll want to provide truncated listings of all currently **active** zones.
 - Use a rich-rule that blocks the IP address `138.138.0.3`.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='138.138.0.3' reject">
     ```
 
 #### Block Ping/ICMP Requests
@@ -288,7 +292,7 @@ Harden your network against `ping` scans by blocking `icmp ehco` replies.
 - Run the command that blocks `pings` and `icmp` requests in your `public` zone.
 
     ```bash
-    $ <ADD COMMAND HERE>
+    $ <echo “1” > /ping/ipv4/icmp_echo_ignore_all>
     ```
 
 #### Rule Check
@@ -298,11 +302,11 @@ Now that you've set up your brand new `firewalld` installation, it's time to ver
 - Run the command that lists all  of the rule settings. Do one command at a time for each zone.
 
     ```bash
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
-    $ <ADD COMMAND HERE>
+    $ <systemctl status firewalld>
+    $ <firewall-cmd --zone=zone-web --list-sources>
+    $ <firewall-cmd --zone=zone-sales --list-sources>
+    $ <firewall-cmd --zone=zone-mail --list-sources>
+
     ```
 
 - Are all of our rules in place? If not, then go back and make the necessary modifications before checking again.
@@ -320,17 +324,17 @@ Now, we will work on another lab. Before you start, complete the following revie
 
 1. Name and define two ways an IDS connects to a network.
 
-   Answer 1:
+   Answer 1: The Intrusion detection systems = via a network hub
 
-   Answer 2:
+   Answer 2: network tap is ahardware device 
 
 2. Describe how an IPS connects to a network.
 
-   Answer:
+   Answer: Through the connect via a switch  via a VLAN to a listening port.
 
 3. What type of IDS compares patterns of traffic to predefined signatures and is unable to detect Zero-Day attacks?
 
-   Answer:
+   Answer:Snort is an open source based IDS it recognises malicious network packets but is uable to dectect zero day attacks
 
 4. Which type of IDS is beneficial for detecting all suspicious traffic that deviates from the well-known baseline and is excellent at detecting when an attacker probes or sweeps a network?
 
