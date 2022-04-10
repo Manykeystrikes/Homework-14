@@ -324,9 +324,11 @@ Now, we will work on another lab. Before you start, complete the following revie
 
 1. Name and define two ways an IDS connects to a network.
 
-   Answer 1: The Intrusion detection systems = via a network hub
+   Answer 1: The Intrusion detection systems 
+   = via a network hub
 
-   Answer 2: network tap is ahardware device 
+   Answer 2:
+    network tap is ahardware device 
 
 2. Describe how an IPS connects to a network.
 
@@ -338,7 +340,7 @@ Now, we will work on another lab. Before you start, complete the following revie
 
 4. Which type of IDS is beneficial for detecting all suspicious traffic that deviates from the well-known baseline and is excellent at detecting when an attacker probes or sweeps a network?
 
-   Answer:
+   Answer: Anomaly or Behaviour based -use Artifical Intelligence, statistical mosdels 
 
 #### Defense in Depth
 
@@ -346,72 +348,75 @@ Now, we will work on another lab. Before you start, complete the following revie
 
     1.  A criminal hacker tailgates an employee through an exterior door into a secured facility, explaining that they forgot their badge at home.
 
-        Answer:
+        Answer:Physical Human firewall
+
 
     2. A zero-day goes undetected by antivirus software.
 
-        Answer:
+        Answer: exploits potential software weakness and is a the vendor dev has zero days to patch and the security phase is Application and development patching security
 
     3. A criminal successfully gains access to HR’s database.
 
-        Answer:
+        Answer:Endpoint security - gained access due to social engineering 
 
     4. A criminal hacker exploits a vulnerability within an operating system.
 
-        Answer:
+        Answer: Application Secuity
 
     5. A hacktivist organization successfully performs a DDoS attack, taking down a government website.
 
-        Answer:
+        Answer: DNS based protection 
 
     6. Data is classified at the wrong classification level.
 
-        Answer:
+        Answer:Administrative contols 
 
     7. A state sponsored hacker group successfully firewalked an organization to produce a list of active services on an email server.
 
-        Answer:
+        Answer:Application security  DNS attack
 
 2. Name one method of protecting data-at-rest from being readable on hard drive.
 
-    Answer:
+    Answer: Data encryption - 
 
 3. Name one method to protect data-in-transit.
 
-    Answer:
+    Answer:Using HTTPS (Hypertext Transfer Protocol /secure )
 
 4. What technology could provide law enforcement with the ability to track and recover a stolen laptop.
 
-   Answer:
+   Answer:Use of software eg LoJack. 
 
 5. How could you prevent an attacker from booting a stolen laptop using an external hard drive?
 
-    Answer:
+    Answer:Encrypt data, root password - add kernal parameter <singleinit=/bin/bash>
+    Disable booting from an external media in BIOS
 
 
 #### Firewall Architectures and Methodologies
 
 1. Which type of firewall verifies the three-way TCP handshake? TCP handshake checks are designed to ensure that session packets are from legitimate sources.
 
-  Answer:
+  Answer:Statefull inspection fire wall 
 
 2. Which type of firewall considers the connection as a whole? Meaning, instead of looking at only individual packets, these firewalls look at whole streams of packets at one time.
 
-  Answer:
+  Answer:Statelees firewalls are generally less reigorous - based on static information such as source information 
 
 3. Which type of firewall intercepts all traffic prior to being forwarded to its final destination. In a sense, these firewalls act on behalf of the recipient by ensuring the traffic is safe prior to forwarding it?
 
-  Answer:
+  Answer: Proxt - Application firwall works with TCP can intercept all packets 
 
 
 4. Which type of firewall examines data within a packet as it progresses through a network interface by examining source and destination IP address, port number, and packet type- all without opening the packet to inspect its contents?
 
-  Answer:
+  Answer: Stateless packet inspection
+
 
 
 5. Which type of firewall filters based solely on source and destination MAC address?
 
-  Answer:
+  Answer:Stateful 
 
 
 
